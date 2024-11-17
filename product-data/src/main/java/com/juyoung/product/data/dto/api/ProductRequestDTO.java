@@ -1,12 +1,12 @@
 package com.juyoung.product.data.dto.api;
 
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import jakarta.annotation.Nonnull;
 
 @Data
+@AllArgsConstructor
 public class ProductRequestDTO {
-
     @NotNull(message = "Category ID is required")
     private Long categoryId;
 

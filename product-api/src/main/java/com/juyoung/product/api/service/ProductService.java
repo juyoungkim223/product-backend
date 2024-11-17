@@ -101,7 +101,7 @@ public class ProductService {
         Brand brand = brandRepository.findById(productRequestDTO.getBrandId())
                 .orElseThrow(() -> new ApiException(ResponseMeta.BRAND_NOT_FOUND, HttpStatus.NOT_FOUND));
 
-        // Check if a product already exists for the category and brand
+        // 상품 추가 제약조건 유효성
         boolean exists = productRepository.existsByCategoryAndBrand(category, brand);
         if (exists) {
             throw new ApiException(ResponseMeta.PRODUCT_ALREADY_EXISTS, HttpStatus.BAD_REQUEST);
@@ -135,8 +135,8 @@ public class ProductService {
         productRepository.save(product);
     }
 
-    public void deleteProduct(Long productId) {
-        productRepository.deleteById(productId);
+    public void deleteProduct(ProductDeletionRequestDTO requestDTO) {
+        productRepository.deleteById(requestDTO.getProductId());
     }
 }
 

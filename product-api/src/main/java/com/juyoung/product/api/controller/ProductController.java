@@ -23,8 +23,8 @@ public class ProductController {
     }
 
     @Operation(summary = "2. 단일 브랜드로 모든 카테고리 상품 구매 시 최저가격 조회",
-            description = "브랜드별 카테고리 상품 가격과 총합을 조회합니다.")
-    @GetMapping("/brand/{brandName}")
+            description = "단일 브랜드의 카테고리 별 상품 가격과 총합을 조회합니다.")
+    @GetMapping("/brand")
     public ResponseEntity<BrandWithTotalPriceResponseDTO> getBrandTotalPrice() {
         BrandWithTotalPriceResponseDTO response = productService.getCheapestBrandWithTotalPrice();
         return ResponseEntity.ok(response);
@@ -56,9 +56,9 @@ public class ProductController {
 
     @Operation(summary = "4. 상품 삭제 API",
             description = "상품 ID를 기준으로 데이터를 삭제합니다.")
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteProduct(@RequestBody Long id) {
-        productService.deleteProduct(id);
+    @DeleteMapping
+    public ResponseEntity<String> deleteProduct(@Valid @RequestBody ProductDeletionRequestDTO requestDTO) {
+        productService.deleteProduct(requestDTO);
         return ResponseEntity.ok("Product deleted successfully!");
     }
 }
