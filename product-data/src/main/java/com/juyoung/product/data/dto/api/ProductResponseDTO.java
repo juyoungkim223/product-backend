@@ -9,5 +9,5 @@ import lombok.Data;
 public class ProductResponseDTO {
     private String category;
     private String brand;
-    private int price;
+    private String price;
 }

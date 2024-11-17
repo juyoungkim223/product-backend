@@ -1,11 +1,7 @@
 package com.juyoung.product.api.controller;
 
-import com.juyoung.product.api.entity.Product;
 import com.juyoung.product.api.service.ProductService;
-import com.juyoung.product.data.dto.api.BrandWithTotalPriceResponseDTO;
-import com.juyoung.product.data.dto.api.CategoryPriceRangeResponseDTO;
-import com.juyoung.product.data.dto.api.CheapestProductResponseDTO;
-import com.juyoung.product.data.dto.api.ProductRequestDTO;
+import com.juyoung.product.data.dto.api.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -45,16 +41,16 @@ public class ProductController {
     @Operation(summary = "4. 상품 추가 API",
             description = "상품 정보를 추가합니다.")
     @PostMapping
-    public ResponseEntity<String> addProduct(@Valid @RequestBody ProductRequestDTO product) {
-        productService.addProduct(product);
+    public ResponseEntity<String> addProduct(@Valid @RequestBody ProductRequestDTO requestDTO) {
+        productService.addProduct(requestDTO);
         return ResponseEntity.ok("Product added successfully!");
     }
 
     @Operation(summary = "4. 상품 업데이트 API",
             description = "상품 정보를 업데이트합니다.")
     @PutMapping
-    public ResponseEntity<String> UpdateProduct(@Valid @RequestBody ProductRequestDTO product) {
-        productService.updateProduct(product);
+    public ResponseEntity<String> UpdateProduct(@Valid @RequestBody ProductUpdateRequestDTO requestDTO) {
+        productService.updateProduct(requestDTO);
         return ResponseEntity.ok("Product updated successfully!");
     }
 

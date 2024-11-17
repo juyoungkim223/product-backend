@@ -10,4 +10,9 @@ public class PriceFormatterUtil {
         NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.KOREA);
         return numberFormat.format(price);
     }
+    // "1,900" -> 1900
+    public static int parsePriceToInt(String price) {
+        return Integer.parseInt(price.replaceAll(",", ""));
+    }
+
 }

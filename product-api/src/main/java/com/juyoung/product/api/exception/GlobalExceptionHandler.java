@@ -1,6 +1,7 @@
 package com.juyoung.product.api.exception;
 
 import com.juyoung.product.data.dto.api.ErrorResponseDTO;
+import com.juyoung.product.data.dto.api.ResponseMeta;
 import com.juyoung.product.data.exception.ApiException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,8 +22,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ApiException.class)
     public ResponseEntity<ErrorResponseDTO> handleApiException(ApiException ex) {
         ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(
+                ex.getResponseMeta().getCode(),
                 ex.getMessage(),
-                ex.getStatus().value(),
                 LocalDateTime.now()
         );
         return new ResponseEntity<>(errorResponseDTO, ex.getStatus());
@@ -31,8 +32,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponseDTO> handleGenericException(Exception ex) {
         ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(
-                "An unexpected error occurred",
-                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                ResponseMeta.GENERAL_ERROR.getCode(),
+                ResponseMeta.GENERAL_ERROR.getMessage(),
                 LocalDateTime.now()
         );
         return new ResponseEntity<>(errorResponseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -52,8 +53,8 @@ public class GlobalExceptionHandler {
                 .collect(Collectors.joining(", "));
 
         ErrorResponseDTO errorResponse = new ErrorResponseDTO(
-                "Validation failed, " + errorMessages,
-                HttpStatus.BAD_REQUEST.value(),
+                ResponseMeta.INVALID_INPUT.getCode(),
+                ResponseMeta.INVALID_INPUT.getMessage() + ": " + errorMessages,
                 LocalDateTime.now()
         );
 
