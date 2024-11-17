@@ -32,7 +32,8 @@ public class DataInitializer implements CommandLineRunner {
                 new Brand(null, "F"),
                 new Brand(null, "G"),
                 new Brand(null, "H"),
-                new Brand(null, "I")
+                new Brand(null, "I"),
+                new Brand(null, "J")
         };
         brandRepository.saveAll(Arrays.asList(brands));
 
